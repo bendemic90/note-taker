@@ -9,14 +9,16 @@ const PORT = process.env.PORT || 3000;
 const note = [];
 
 //------------------------
-//on initialisation, pushes db.json to note[]
+//on initialisation note array is empty, so this pushes db.json to note[]
 const y = () => {
 fs.readFile(`./db/db.json`, 'utf8', (err, data) => {
     if (err) console.error;
     let x = JSON.parse(data);
     for (i = 0; i < x.length; i++) {
             note.push(x[i]);
+            x[i].id = uniqid();
         }
+        console.log(x)
     })
 }
 
