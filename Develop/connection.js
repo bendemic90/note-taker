@@ -18,7 +18,10 @@ fs.readFile(`./db/db.json`, 'utf8', (err, data) => {
             note.push(x[i]);
             x[i].id = uniqid();
         }
+        console.log(`printing current db.json`)
+        console.log(`-------------`)
         console.log(x)
+        console.log(`-------------`)
     })
 }
 
@@ -48,5 +51,21 @@ app.post('/api/notes', (req, res) => {
         console.log(`done`)
     })
 });
+
+app.delete('/api/notes/:id', (req, res) => {
+    console.log(req.params.id);
+    fs.readFile(`./db/db.json`, 'utf8', (err, data) => {
+        if (err) console.error;
+        let x = JSON.parse(data);
+        for (i = 0; i < x.length; i++) {
+                if (x[i].id === req.params.id) {
+                    console.log(`match`)
+                } else {
+                    console.log(`no match`)
+                }
+            }
+          
+        })
+    })
 
 app.listen(PORT, () => console.log(`listening to port ${PORT}`));
